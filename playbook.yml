@@ -1,0 +1,35 @@
+- name: your play name
+  vars_files:
+    - ./vars.yml
+  hosts: web_servers
+  gather_facts: false
+  tasks:
+  - name: Update repositories
+    ansible.builtin.apt:
+      update_cache: yes
+
+  - name: install ngnix
+    tags: always
+    ansible.builtin.apt:
+      name: "{{package}}"
+      state: latest
+
+  - name: Make sure nginx is started
+    tags: first
+    ansible.builtin.sysvinit:
+        name: nginx
+        state: started
+
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html/
+
+  - name: restarted
+    ansible.builtin.sysvinit:
+        name: nginx
+        state: restarted
+
+
+
+

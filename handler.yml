@@ -1,0 +1,22 @@
+- name: my play with handlers
+  hosts: all
+  tasks:
+  - name: my task1 with handlers
+    apt:
+      name: nginx
+    notify: my_handler
+    changed_when: true
+
+  - name: immediate run
+    meta: flush_handlers
+
+  - name : my task1 with handlers
+    apt:
+      name: curl
+
+
+  handlers:
+  - name: my_handler
+    sysvinit:
+      name: nginx
+      state: restarted

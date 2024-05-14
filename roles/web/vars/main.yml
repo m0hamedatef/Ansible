@@ -1,0 +1,16 @@
+
+my_message: hello 
+package: nginx
+packages:
+    - {package_name: "nginx", package_state: "present"}
+    - {package_name: "mariadb-server", package_state: "latest"}
+    - {package_name: "curl", package_state: "absent"}
+
+version: latest
+number: 3
+state: started
+state2: restarted
+list:
+ 
+  - file.css
+  - file.js

@@ -1,0 +1,21 @@
+
+  - name: my_handler
+    ansible.builtin.sysvinit: 
+      name: "{{package}}"
+      state: "{{state}}"
+    notify: my_handler2
+    changed_when: true
+
+  - name: my_handler2
+    copy:
+      src: "{{item}}"
+      dest: /var/www/html/
+    loop:
+      "{{list}}"
+    notify: my_handler3
+    changed_when: true
+
+  - name: my_handler3
+    ansible.builtin.sysvinit:
+      name: "{{package}}"
+      state: "{{state2}}"

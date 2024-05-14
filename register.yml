@@ -1,0 +1,9 @@
+- name: my play with register
+  hosts: all
+  tasks:
+  - name: my task1 with register
+    command: cat /var/www/html/index.html
+    register: my_result
+  - name: my task2 with register
+    debug:
+      var: my_result

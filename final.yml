@@ -1,0 +1,5 @@
+- name: my play with conditions
+  hosts: web_servers
+  become: true
+  roles:
+     - web

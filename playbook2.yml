@@ -1,0 +1,10 @@
+- name: my play with loops
+  hosts: all
+  vars_files:
+    - ./vars.yml
+  tasks:
+  - name: my task with loops
+    apt:
+      name: "{{ item.package_name }}"
+      state: "{{ item.package_state }}"
+    loop: "{{packages}}"

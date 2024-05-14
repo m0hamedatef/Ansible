@@ -1,0 +1,21 @@
+- name: my play with conditions
+  hosts: all
+  tasks:
+  - name: my task1 with conditions
+    apt:
+      name: nginx
+    when: ansible_facts['distribution'] == "Ubuntu"
+
+
+  - name: my task2 with conditions
+    package:
+      name: httpd
+    when: ansible_facts['distribution'] == "CentOS"
+
+
+  - name: restart if Ubuntu
+    sysvinit:
+      name: nginx
+      state: restarted
+    when: ansible_facts['distribution'] == "Ubuntu"
+
